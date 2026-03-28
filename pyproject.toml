@@ -1,0 +1,43 @@
+[project]
+name = "pdm-default-scripts"
+version = "0.2.4"
+description = "PDM plugin that adds default scripts after `pdm init`"
+authors = [{ name = "tepek2", email = "dev@tepek2.com" }]
+requires-python = ">=3.9"
+readme = "README.md"
+license = { text = "MIT" }
+keywords = ["pdm", "plugin", "default scripts"]
+dependencies = ["pdm>=2.26.7"]
+
+[project.entry-points.pdm]
+default-scripts = "default_scripts:plugin"
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[dependency-groups]
+dev = [
+    "pytest>=9.0.2",
+    "pytest-mock>=3.15.1",
+    "pyright>=1.1.408",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.15.8",
+]
+
+[tool.ruff]
+line-length = 100
+lint.select = ["E4", "E7", "E9", "F", "I"]
+
+
+[tool.pdm]
+distribution = true
+
+[tool.pdm.scripts]
+lint = "ruff check"
+test = "pytest"
+type-check = "pyright ."
+static-analys = { composite = ["lint", "type-check"] }
+coverage = "pytest --cov-fail-under=75"
+tests = { composite = ["static-analys", "test"] }

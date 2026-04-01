@@ -1,3 +1,5 @@
+![Github Actions](https://github.com/tepek2/pdm-default-scripts/actions/workflows/tests.yml/badge.svg)
+
 # pdm-default-scripts
 
 `pdm-default-scripts` is a PDM plugin that adds your predefined scripts to new projects right after `pdm init`.

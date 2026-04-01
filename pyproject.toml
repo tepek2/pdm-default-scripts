@@ -1,6 +1,6 @@
 [project]
 name = "pdm-default-scripts"
-version = "0.2.4"
+version = "0.2.5"
 description = "PDM plugin that adds default scripts after `pdm init`"
 authors = [{ name = "tepek2", email = "dev@tepek2.com" }]
 requires-python = ">=3.9"
@@ -24,6 +24,7 @@ dev = [
     "pyright>=1.1.408",
     "pytest-cov>=7.1.0",
     "ruff>=0.15.8",
+    "commitizen>=4.13.9",
 ]
 
 [tool.ruff]
@@ -41,3 +42,6 @@ type-check = "pyright ."
 static-analys = { composite = ["lint", "type-check"] }
 coverage = "pytest --cov-fail-under=75"
 tests = { composite = ["static-analys", "test"] }
+
+bump-version = {shell = "cz bump --yes --allow-no-commit --annotated-tag --annotated-tag-message \"$(cz changelog --dry-run)\" {args}"}
+release = { composite = ["bump-version {args}", "git push"] }

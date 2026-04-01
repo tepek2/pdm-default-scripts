@@ -16,6 +16,6 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Create GitHub Release
-        run: gh release create "${{ github.ref_name }}" --notes Hello
+        run: gh release create "${{ github.ref_name }}" --notes-from-tag
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

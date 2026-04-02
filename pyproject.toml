@@ -1,6 +1,6 @@
 [project]
 name = "pdm-default-scripts"
-version = "0.2.5"
+version = "0.3.0"
 description = "PDM plugin that adds default scripts after `pdm init`"
 authors = [{ name = "tepek2", email = "dev@tepek2.com" }]
 requires-python = ">=3.9"
@@ -43,5 +43,11 @@ static-analys = { composite = ["lint", "type-check"] }
 coverage = "pytest --cov-fail-under=75"
 tests = { composite = ["static-analys", "test"] }
 
-bump-version = {shell = "cz bump --yes --allow-no-commit --annotated-tag --annotated-tag-message \"$(cz changelog --dry-run)\" {args}"}
-release = { composite = ["bump-version {args}", "git push"] }
+release-commit = """\
+    git add -A
+    git commit -m \"release: v$(cz version --project)\"
+    git tag \"v$(cz version --project)\"
+    git push
+    git push --tags
+    """
+release-create = "cz bump --files-only --changelog --changelog-to-stdout"

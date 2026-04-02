@@ -43,11 +43,10 @@ static-analys = { composite = ["lint", "type-check"] }
 coverage = "pytest --cov-fail-under=75"
 tests = { composite = ["static-analys", "test"] }
 
-
-release-commit = { composite = [
-    "git add pyproject.toml CHANGELOG.md",
-    "git commit -m \"release: v$(cz version --project)\"",
-    "git tag \"v$(cz version --project)\"",
-    "git push && git push --tags",
-] }
+#  && git push && git push --tags"
+release-commit.shell = """\
+    git add pyproject.toml CHANGELOG.md\
+    && git commit -m \"release: v$(cz version --project)\"\
+    && git tag \"v$(cz version --project)\"\
+    """
 release-create = "cz bump --allow-no-commit --files-only --changelog --changelog-to-stdout --yes {args}"

@@ -1,4 +1,5 @@
 ![Github Actions](https://github.com/tepek2/pdm-default-scripts/actions/workflows/tests.yml/badge.svg)
+[![PyPI](https://img.shields.io/pypi/v/pdm-default-scripts?logo=python&logoColor=%23cccccc)](https://pypi.org/project/pdm-default-scripts)
 
 # pdm-default-scripts
 

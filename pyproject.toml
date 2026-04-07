@@ -9,6 +9,11 @@ license = { text = "MIT" }
 keywords = ["pdm", "plugin", "default scripts"]
 dependencies = ["pdm>=2.26.7"]
 
+[project.urls]
+Homepage = "https://github.com/tepek2/pdm-default-scripts"
+Repository = "https://github.com/tepek2/pdm-default-scripts"
+
+
 [project.entry-points.pdm]
 default-scripts = "default_scripts:plugin"
 

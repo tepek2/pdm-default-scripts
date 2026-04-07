@@ -1,6 +1,6 @@
 [project]
 name = "pdm-default-scripts"
-version = "1.0.0"
+version = "1.0.1"
 description = "PDM plugin that adds default scripts after `pdm init`"
 authors = [{ name = "tepek2", email = "dev@tepek2.com" }]
 requires-python = ">=3.9"

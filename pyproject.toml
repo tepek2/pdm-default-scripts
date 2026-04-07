@@ -1,6 +1,6 @@
 [project]
 name = "pdm-default-scripts"
-version = "0.9.2"
+version = "0.1.5"
 description = "PDM plugin that adds default scripts after `pdm init`"
 authors = [{ name = "tepek2", email = "dev@tepek2.com" }]
 requires-python = ">=3.9"
@@ -33,6 +33,7 @@ lint.select = ["E4", "E7", "E9", "F", "I"]
 
 [tool.commitizen]
 name = "cz_conventional_commits"
+changelog_incremental = false
 tag_format = "v$version"
 version_scheme = "semver2"
 version_provider = "pep621"

@@ -15,7 +15,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Build release notes from changelog
+        run: |
+          version="${{ github.ref_name }}"
+
+          awk -v version="$version" '
+            $0 ~ "^## " version "( \\(|$)" { in_section=1; print; next }
+            in_section && /^## / { exit }
+            in_section { print }
+          ' CHANGELOG.md > release_notes.md
+
+          if [ ! -s release_notes.md ]; then
+            awk '
+              /^## / {
+                if (in_section) {
+                  exit
+                }
+                in_section=1
+              }
+              in_section { print }
+            ' CHANGELOG.md > release_notes.md
+          fi
+
+          if [ ! -s release_notes.md ]; then
+            echo "Failed to extract release notes from CHANGELOG.md" >&2
+            exit 1
+          fi
+
       - name: Create GitHub Release
-        run: gh release create "${{ github.ref_name }}" --notes-from-tag
+        run: gh release create "${{ github.ref_name }}" --notes-file release_notes.md
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

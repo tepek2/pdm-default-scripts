@@ -24,12 +24,18 @@ dev = [
     "pyright>=1.1.408",
     "pytest-cov>=7.1.0",
     "ruff>=0.15.8",
-    "commitizen>=4.13.9",
 ]
+release = ["commitizen>=4.13.9"]
 
 [tool.ruff]
 line-length = 100
 lint.select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "v$version"
+version_scheme = "semver2"
+version_provider = "pep621"
 
 
 [tool.pdm]
@@ -43,11 +49,11 @@ static-analys = { composite = ["lint", "type-check"] }
 coverage = "pytest --cov-fail-under=75"
 tests = { composite = ["static-analys", "test"] }
 
-#  && git push && git push --tags"
+release-create = "cz bump --allow-no-commit --version-files-only --changelog --changelog-to-stdout --yes {args}"
 release-commit.shell = """\
     git add pyproject.toml CHANGELOG.md && \
     git commit -m \"release: v$(cz version --project)\" && \
     git tag \"v$(cz version --project)\" && \
     git push && git push --tags
     """
-release-create = "cz bump --allow-no-commit --files-only --changelog --changelog-to-stdout --yes {args}"
+release = { composite = ["release-create {args}", "release-commit"] }
